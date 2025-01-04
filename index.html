@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Master Codium</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Input field -->
+        <input type="text" class="input-field" placeholder="Start typing...">
+        <div class="content-box">
+            <!-- Text to type -->
+            <div class="typing-text">
+                <p id="text-to-type">Loading...</p>
+            </div>
+            <div class="content">
+                <!-- Typing stats -->
+                <ul class="result-details">
+                    <li class="time">
+                        <p>Time Left:</p>
+                        <span><b id="time">60</b>s</span>
+                    </li>
+                    <li class="mistake">
+                        <p>Mistakes:</p>
+                        <span id="mistakes">0</span>
+                    </li>
+                    <li class="wpm">
+                        <p>Words Per Minute:</p>
+                        <span id="wpm">0</span>
+                    </li>
+                    <li class="cpm">
+                        <p>Characters Per Minute:</p>
+                        <span id="cpm">0</span>
+                    </li>
+                </ul>
+                <button id="reset-button">Try Again</button>
+            </div>
+        </div>
+        <div class="live-output">
+            <h3>Your Typing:</h3>
+            <div id="live-display"></div>
+        </div>
+    </div>
+    <script src="index.js" defer></script>
+</body>
+</html>
