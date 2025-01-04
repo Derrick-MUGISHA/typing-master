@@ -123,6 +123,37 @@ button:hover {
     color: #ffffff;
 }
 
+/* Live Output Styling */
+.live-output {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #007acc;
+    background: #2e2e2e;
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+#live-display {
+    white-space: pre-wrap; /* Preserve spaces and line breaks */
+    word-wrap: break-word;
+}
+
+.correct {
+    color: #4caf50; /* Green for correct characters */
+}
+
+.incorrect {
+    color: #f44336; /* Red for incorrect characters */
+}
+
+.red-underline {
+    text-decoration: underline;
+    text-decoration-color: red;
+    text-decoration-thickness: 2px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .wrapper {

@@ -12,6 +12,7 @@ let maxTime = 60;
 let timeLeft = maxTime;
 let charIndex = 0;
 let mistakes = 0;
+let totalTyped = 0; // Total characters typed
 let isTyping = false;
 
 async function fetchRandomWords() {
@@ -33,29 +34,41 @@ async function loadParagraph() {
         typingText.innerHTML += span;
     });
     typingText.querySelector("span").classList.add("active");
+    charIndex = 0;
     inputField.value = "";
-    inputField.focus();
     liveDisplay.innerHTML = ""; // Clear the live display
-    timeLeft = maxTime;
-    charIndex = mistakes = 0;
-    timeTag.innerText = timeLeft;
-    mistakeTag.innerText = mistakes;
-    wpmTag.innerText = 0;
-    cpmTag.innerText = 0;
-    clearInterval(timer);
-    isTyping = false;
+}
+
+function updateLiveDisplay(characters) {
+    let liveText = "";
+    characters.forEach((char, index) => {
+        if (index < charIndex) {
+            liveText += `<span class="${char.className}">${char.innerText}</span>`;
+        } else {
+            liveText += `<span>${char.innerText}</span>`;
+        }
+    });
+    liveDisplay.innerHTML = liveText;
+}
+
+async function checkCompletion() {
+    const characters = typingText.querySelectorAll("span");
+    if (charIndex === characters.length) {
+        totalTyped += characters.length; // Add current paragraph's characters
+        await loadParagraph(); // Load new paragraph
+    }
 }
 
 function initTyping() {
     const characters = typingText.querySelectorAll("span");
     const typedChar = inputField.value.split("")[charIndex];
-    let liveText = ""; // To build the live display content
 
     if (timeLeft > 0) {
         if (!isTyping) {
             timer = setInterval(initTimer, 1000);
             isTyping = true;
         }
+
         if (typedChar == null) { // Backspace
             if (charIndex > 0) {
                 charIndex--;
@@ -75,27 +88,22 @@ function initTyping() {
             charIndex++;
         }
 
-        characters.forEach((char, index) => {
-            if (index < charIndex) {
-                liveText += `<span class="${char.className}">${char.innerText}</span>`;
-            } else {
-                liveText += `<span>${char.innerText}</span>`;
-            }
-        });
-
-        liveDisplay.innerHTML = liveText; // Update the live display
+        updateLiveDisplay(characters); // Update live display
 
         characters.forEach(span => span.classList.remove("active"));
         if (charIndex < characters.length) {
             characters[charIndex].classList.add("active");
         }
 
-        let wpm = Math.round(((charIndex - mistakes) / 5) / (maxTime - timeLeft) * 60);
+        let wpm = Math.round(((totalTyped + charIndex - mistakes) / 5) / (maxTime - timeLeft) * 60);
         wpmTag.innerText = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
         mistakeTag.innerText = mistakes;
-        cpmTag.innerText = charIndex - mistakes;
+        cpmTag.innerText = totalTyped + charIndex - mistakes;
+
+        checkCompletion(); // Check if the paragraph is completed
     } else {
         clearInterval(timer);
+        showResults(); // Show results at the end of the timer
     }
 }
 
@@ -108,10 +116,32 @@ function initTimer() {
     }
 }
 
+function showResults() {
+    inputField.value = ""; // Disable further input
+    inputField.setAttribute("disabled", true); // Disable input field
+    alert(`Time's up! Your results:
+    - Words Per Minute (WPM): ${wpmTag.innerText}
+    - Characters Per Minute (CPM): ${cpmTag.innerText}
+    - Total Mistakes: ${mistakeTag.innerText}`);
+}
+
 function resetGame() {
+    clearInterval(timer);
+    timeLeft = maxTime;
+    charIndex = 0;
+    mistakes = 0;
+    totalTyped = 0;
+    timeTag.innerText = timeLeft;
+    wpmTag.innerText = 0;
+    mistakeTag.innerText = 0;
+    cpmTag.innerText = 0;
+    inputField.removeAttribute("disabled");
+    inputField.value = "";
+    isTyping = false;
     loadParagraph();
 }
 
+// Load the initial paragraph
 loadParagraph();
 inputField.addEventListener("input", initTyping);
 resetButton.addEventListener("click", resetGame);
