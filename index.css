@@ -6,23 +6,33 @@
     font-family: 'Poppins', sans-serif;
 }
 
+/* CSS Variables */
+:root {
+    --bg-color: #1f242d;
+    --main-color: #0ef;
+    --text-color: #fff;
+    --hover-color: #0ef;
+}
+
 /* Body Styling */
 body {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #007acc, #6dd5fa);
+    background: var(--bg-color);
     padding: 0 10px;
+    color: var(--text-color);
 }
 
 /* Wrapper Box */
 .wrapper {
     width: 700px;
     padding: 30px;
-    background: #1e1e1e;
+    background: var(--bg-color);
     border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--main-color);
 }
 
 /* Input Field */
@@ -30,24 +40,25 @@ body {
     width: 100%;
     padding: 15px;
     font-size: 16px;
-    border: 2px solid #007acc;
+    border: 2px solid var(--main-color);
     border-radius: 5px;
-    background: #2c2c2c;
-    color: #ffffff;
+    background: #262b34;
+    color: var(--text-color);
     outline: none;
     margin-bottom: 20px;
 }
 
 .input-field::placeholder {
-    color: #6d6d6d;
+    color: #a8a8a8;
 }
 
 /* Content Box */
 .content-box {
     padding: 20px;
     border-radius: 10px;
-    border: 4px solid #007acc;
-    background: #2e2e2e;
+    border: 4px solid var(--main-color);
+    background: #262b34;
+    color: var(--text-color);
 }
 
 /* Typing Text Styling */
@@ -55,6 +66,7 @@ body {
     max-height: 200px;
     overflow-y: auto;
     margin-bottom: 20px;
+    color: var(--text-color);
 }
 
 .typing-text::-webkit-scrollbar {
@@ -62,7 +74,7 @@ body {
 }
 
 .typing-text::-webkit-scrollbar-thumb {
-    background: #007acc;
+    background: var(--main-color);
     border-radius: 5px;
 }
 
@@ -70,7 +82,6 @@ body {
     font-size: 18px;
     text-align: justify;
     line-height: 1.6;
-    color: #ffffff;
 }
 
 /* Result Details */
@@ -80,7 +91,7 @@ body {
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 20px;
-    border-top: 3px solid #007acc;
+    border-top: 3px solid var(--main-color);
     padding-top: 15px;
 }
 
@@ -94,14 +105,14 @@ body {
 
 .result-details li p {
     font-size: 14px;
-    color: #6d6d6d;
+    color: #a8a8a8;
     margin-bottom: 5px;
 }
 
 .result-details li span {
     font-size: 16px;
     font-weight: bold;
-    color: #ffffff;
+    color: var(--text-color);
 }
 
 /* Button Styling */
@@ -110,17 +121,17 @@ button {
     padding: 10px;
     font-size: 16px;
     font-weight: bold;
-    color: #007acc;
+    color: var(--text-color);
     background: transparent;
-    border: 2px solid #007acc;
+    border: 2px solid var(--main-color);
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 button:hover {
-    background: #007acc;
-    color: #ffffff;
+    background: var(--hover-color);
+    color: var(--bg-color);
 }
 
 /* Live Output Styling */
@@ -128,9 +139,9 @@ button:hover {
     margin-top: 20px;
     padding: 20px;
     border-radius: 10px;
-    border: 2px solid #007acc;
-    background: #2e2e2e;
-    color: #ffffff;
+    border: 2px solid var(--main-color);
+    background: #262b34;
+    color: var(--text-color);
     font-size: 18px;
     line-height: 1.6;
 }
