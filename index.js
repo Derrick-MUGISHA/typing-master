@@ -17,7 +17,7 @@ let isTyping = false;
 
 async function fetchRandomWords() {
     try {
-        const response = await fetch("https://api.wordnik.com/v4/words.json/randomWords");
+        const response = await fetch("https://random-word-api.herokuapp.com/word?number=20");
         const words = await response.json();
         return words.join(" "); // Combine words into a sentence
     } catch (error) {
